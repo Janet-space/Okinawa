@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFCF6">
+<title>全家的沖繩手帳｜四日旅行</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFCF6;--ink:#3E3A39;--pink:#F2A497;--yellow:#F6D27A;--blue:#A8D3E6;--green:#B9DAA5;--muted:#827a70;--white:#fffefa;--shadow:4px 4px 0 var(--ink)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Huninn","Noto Sans TC",sans-serif;line-height:1.65}
+a{color:inherit}
+button,input{font:inherit}
+button{cursor:pointer;color:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,252,246,.96);border-bottom:3px solid var(--ink);display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:10px}
+.brand{display:flex;align-items:center;gap:9px;font-size:1.05rem;font-weight:bold;white-space:nowrap}
+.brand-icon{width:36px;height:36px}
+.nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.nav a{flex:none;text-decoration:none;padding:7px 11px;border:2px solid transparent;border-radius:999px;font-size:.9rem}
+.nav a:hover,.nav a:focus{background:var(--yellow);border-color:var(--ink);outline:none}
+main{max-width:900px;margin:auto;padding:20px 16px 88px}
+.hero{position:relative;border:3px solid var(--ink);border-radius:30px;background:var(--blue);padding:22px 18px 18px;overflow:hidden;box-shadow:var(--shadow)}
+.hero-copy{position:relative;z-index:2;max-width:460px}
+.kicker{display:inline-block;background:var(--white);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-size:.83rem}
+h1{font-size:clamp(2.25rem,8vw,4.2rem);line-height:1.08;letter-spacing:.03em;margin:15px 0 8px}
+.hero p{margin:8px 0}
+.hero-art{display:block;width:min(100%,560px);height:auto;margin:5px auto -5px;overflow:visible}
+.countdown{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.count-box{display:flex;align-items:center;gap:10px;background:var(--white);border:3px solid var(--ink);border-radius:18px;padding:8px 13px}
+.count-number{font-size:1.8rem;font-weight:bold;line-height:1}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border:2px solid var(--ink);border-radius:999px;font-size:.83rem;white-space:nowrap}
+.pink{background:var(--pink)}.yellow{background:var(--yellow)}.blue{background:var(--blue)}.green{background:var(--green)}
+.section{margin-top:34px}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-head h2{font-size:1.55rem;margin:0}
+.section-icon{display:grid;place-items:center;width:42px;height:42px;border:3px solid var(--ink);border-radius:14px;background:var(--yellow);font-size:1.35rem;flex:none}
+.sub{color:var(--muted);font-size:.92rem;margin:0}
+.card{background:var(--white);border:3px solid var(--ink);border-radius:22px;padding:16px;box-shadow:3px 3px 0 var(--ink)}
+.flight-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.flight-card{padding:15px;border:3px solid var(--ink);border-radius:20px;background:var(--white)}
+.flight-card.out{background:#fbe1da}.flight-card.back{background:#e4f1f6}
+.flight-label{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:bold}
+.flight-route{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:14px 0 8px}
+.airport{text-align:center;min-width:65px}
+.airport strong{display:block;font-size:1.7rem;line-height:1.2}
+.route-line{flex:1;text-align:center;color:var(--muted);font-size:.8rem}
+.route-line:before{content:"✈ ─────── ✈";display:block;color:var(--ink);letter-spacing:1px}
+.flight-time{font-size:1.15rem;font-weight:bold}
+.date-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:16px}
+.day-tab{border:3px solid var(--ink);border-radius:17px;background:var(--white);padding:9px 3px;text-align:center;transition:transform .18s ease,background .18s ease}
+.day-tab .daynum{display:block;font-size:1.35rem;font-weight:bold;line-height:1.2}
+.day-tab .weekday{font-size:.8rem;color:var(--muted)}
+.day-tab[aria-selected="true"]{background:var(--pink);box-shadow:3px 3px 0 var(--ink);transform:translateY(-3px)}
+.day-panel{animation:pop .28s ease both}
+.day-title{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}
+.day-title h3{margin:0;font-size:1.35rem;line-height:1.35}
+.day-title p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.timeline{position:relative;margin-left:6px;padding-left:24px}
+.timeline:before{content:"";position:absolute;left:5px;top:8px;bottom:10px;border-left:3px dashed var(--ink)}
+.event{position:relative;margin:0 0 14px}
+.event:before{content:"";position:absolute;left:-25px;top:19px;width:13px;height:13px;border:3px solid var(--ink);background:var(--paper);border-radius:50%;z-index:1}
+.event-card{border:3px solid var(--ink);border-radius:18px;padding:12px 13px;background:var(--white)}
+.event-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+.time{font-weight:bold;font-size:.95rem;background:var(--yellow);border-radius:8px;padding:2px 8px}
+.event h4{font-size:1.05rem;margin:2px 0}
+.event p{margin:3px 0;color:#615b55;font-size:.91rem}
+.event .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.must{background:var(--pink);font-size:.78rem;border:2px solid var(--ink);border-radius:999px;padding:1px 8px;font-weight:bold}
+.transport{font-size:.78rem;border:2px solid var(--ink);border-radius:999px;padding:1px 8px;background:var(--blue)}
+.meal{background:var(--green)}
+.day-note{background:#fff2d4;border:2px dashed var(--ink);border-radius:15px;padding:11px 13px;margin-top:14px;font-size:.9rem}
+.lodging-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.hotel-card{display:flex;gap:13px;align-items:flex-start}
+.hotel-emoji{width:52px;height:52px;border:3px solid var(--ink);border-radius:15px;background:var(--green);display:grid;place-items:center;font-size:1.6rem;flex:none}
+.hotel-card h3{margin:0;font-size:1.05rem;line-height:1.35}
+.hotel-card p{margin:4px 0;color:var(--muted);font-size:.9rem}
+.hotel-card a{display:inline-block;margin-top:5px;text-decoration-thickness:2px;text-underline-offset:3px}
+.checklist{display:grid;grid-template-columns:1fr;gap:8px}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:2px solid var(--ink);border-radius:14px;background:var(--white)}
+.check-item input{width:21px;height:21px;margin-top:3px;accent-color:#8dbb77;flex:none}
+.check-item:has(input:checked){background:#edf5e7;color:#6e7867}
+.check-item:has(input:checked) span{text-decoration:line-through}
+.check-progress{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;color:var(--muted);font-size:.9rem}
+.progress{height:12px;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:white;margin-bottom:14px}
+.progress-fill{height:100%;width:0;background:var(--green);transition:width .2s ease}
+.info-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.info-line{padding:10px 0;border-bottom:1px dashed #b9afa1}
+.info-line:last-child{border-bottom:0}
+.info-line strong{display:block}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 20px 30px}
+.backtop{position:fixed;right:15px;bottom:15px;z-index:15;border:3px solid var(--ink);border-radius:50%;width:48px;height:48px;background:var(--yellow);font-size:1.3rem;box-shadow:3px 3px 0 var(--ink)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes pop{0%{opacity:.4;transform:scale(.975) translateY(6px)}70%{transform:scale(1.012)}100%{opacity:1;transform:scale(1)}}
+.float{transform-box:fill-box;transform-origin:center;animation:float 3.4s ease-in-out infinite}
+.float.delay{animation-delay:-1.5s}
+@media(min-width:650px){main{padding:28px 24px 90px}.hero{padding:30px 30px 10px;min-height:360px}.hero-art{position:absolute;right:0;bottom:2px;width:58%;max-width:540px}.hero-copy{max-width:48%;padding:18px 0 22px}.flight-grid{grid-template-columns:1fr 1fr}.lodging-grid{grid-template-columns:1fr 1fr}.checklist{grid-template-columns:1fr 1fr}.info-grid{grid-template-columns:1fr 1fr}.event-card{padding:14px 16px}.nav a{padding:8px 13px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18Q6 8 13 7Q20 7 19 17M29 17Q28 6 35 7Q42 8 39 19" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="25" r="17" fill="#fffefa" stroke="#3E3A39" stroke-width="2.5"/><circle cx="18" cy="23" r="2" fill="#3E3A39"/><circle cx="30" cy="23" r="2" fill="#3E3A39"/><path d="M20 30Q24 34 28 30" fill="none" stroke="#3E3A39" stroke-width="2.2" stroke-linecap="round"/><path d="M12 34L8 42L17 39M36 34L40 42L31 39" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/></svg>
+    沖繩小手帳
+  </div>
+  <nav class="nav" aria-label="主要選單">
+    <a href="#flights">航班</a><a href="#itinerary">行程</a><a href="#hotels">住宿</a><a href="#packing">待辦</a>
+  </nav>
+</header>
+<main>
+<section class="hero" id="home">
+  <div class="hero-copy">
+    <span class="kicker">OKINAWA · 4 DAYS / 3 NIGHTS</span>
+    <h1>出發去沖繩！<br>🌺 ちむどんどん</h1>
+    <p>一起收集海風、藍色大海與好多好多回憶。</p>
+    <p><span class="pill pink">10/26（一）— 10/29（四）</span></p>
+    <div class="countdown">
+      <div class="count-box"><span>出發倒數</span><span class="count-number" id="countdown">—</span><span>天</span></div>
+      <span class="pill green">平日出遊・親子旅行</span>
+    </div>
+  </div>
+  <svg class="hero-art" viewBox="0 0 540 300" role="img" aria-label="沖繩海島、飛機和風獅爺的手繪插圖">
+    <circle cx="420" cy="66" r="34" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+    <g stroke="#3E3A39" stroke-width="3" stroke-linecap="round"><path d="M420 18v-8M420 114v-8M372 66h-8M476 66h-8M386 32l-6-6M454 100l-6-6M454 32l6-6M386 100l-6 6"/></g>
+    <path d="M10 220Q70 180 130 214T260 205T400 210T540 190V300H10Z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/>
+    <path d="M10 244Q80 220 150 244T300 238T450 244T540 231V300H10Z" fill="#6cbacb" stroke="#3E3A39" stroke-width="3"/>
+    <g class="float"><path d="M72 225L105 155L132 225Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/><path d="M98 225L150 173L188 225Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/><path d="M118 225L160 190L194 225Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/></g>
+    <g class="float delay" transform="translate(260 132) rotate(-7)"><path d="M0 30L120 0L93 29L143 46L141 56L77 48L52 71L38 68L48 43L0 41Z" fill="#fffefa" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M55 27L82 21L70 35Z" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/></g>
+    <g transform="translate(360 207)"><path d="M0 45L-8 8Q-9 -1 0 -4L12 1L18 16L32 12L38 0L50 4L47 24L39 38L35 59L12 59Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><path d="M-5 8L-15 -2L-4 -6M38 6L49 -6L54 5" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/><circle cx="8" cy="18" r="3" fill="#3E3A39"/><circle cx="27" cy="18" r="3" fill="#3E3A39"/><path d="M12 29Q19 37 27 29" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/><path d="M5 42L-4 54L8 51M30 43L40 54L27 51" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/></g>
+    <g fill="#fffefa" stroke="#3E3A39" stroke-width="2.5"><path d="M60 88Q49 73 64 68Q70 53 84 65Q99 55 108 72Q126 73 121 89Z"/><path d="M210 70Q202 60 212 55Q219 42 230 53Q243 45 251 60Q264 62 260 72Z"/></g>
+    <path d="M24 270Q48 260 72 270T120 270T168 270T216 270T264 270T312 270T360 270T408 270T456 270T504 270" fill="none" stroke="#fffefa" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+</section>
+
+<section class="section" id="flights">
+  <div class="section-head"><div class="section-icon">✈️</div><div><h2>航班小卡</h2><p class="sub">把起飛與回家的時間先收好</p></div></div>
+  <div class="flight-grid">
+    <article class="flight-card out">
+      <div class="flight-label"><span>去程・長榮航空 BR186</span><span class="pill pink">10/26（一）</span></div>
+      <div class="flight-route"><div class="airport"><strong>TPE</strong><span>桃園機場</span></div><div class="route-line">直飛約 1 小時 20 分</div><div class="airport"><strong>OKA</strong><span>沖繩那霸</span></div></div>
+      <div class="flight-time">16:50 起飛　→　19:10 抵達</div>
+      <p class="sub">集合時間 14:20｜第二航廈長榮航空 20 號櫃檯</p>
+    </article>
+    <article class="flight-card back">
+      <div class="flight-label"><span>回程・長榮航空 BR185</span><span class="pill blue">10/29（四）</span></div>
+      <div class="flight-route"><div class="airport"><strong>OKA</strong><span>沖繩那霸</span></div><div class="route-line">直飛約 1 小時 45 分</div><div class="airport"><strong>TPE</strong><span>桃園機場</span></div></div>
+      <div class="flight-time">20:10 起飛　→　20:55 抵達</div>
+      <p class="sub">時間皆為當地時間；出發前請再核對航空公司資訊。</p>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="itinerary">
+  <div class="section-head"><div class="section-icon">🗓️</div><div><h2>每日探險路線</h2><p class="sub">點選日期，換一天的旅行故事</p></div></div>
+  <div class="date-strip" role="tablist" aria-label="選擇旅遊日期">
+    <button class="day-tab" role="tab" id="tab-0" aria-selected="true" aria-controls="day-panel" data-day="0"><span>週一</span><span class="daynum">26</span><span class="weekday">抵達日</span></button>
+    <button class="day-tab" role="tab" id="tab-1" aria-selected="false" aria-controls="day-panel" data-day="1"><span>週二</span><span class="daynum">27</span><span class="weekday">文化散策</span></button>
+    <button class="day-tab" role="tab" id="tab-2" aria-selected="false" aria-controls="day-panel" data-day="2"><span>週三</span><span class="daynum">28</span><span class="weekday">海島假期</span></button>
+    <button class="day-tab" role="tab" id="tab-3" aria-selected="false" aria-controls="day-panel" data-day="3"><span>週四</span><span class="daynum">29</span><span class="weekday">最後巡禮</span></button>
+  </div>
+  <div class="card day-panel" id="day-panel" role="tabpanel" aria-labelledby="tab-0" aria-live="polite"></div>
+</section>
+
+<section class="section" id="hotels">
+  <div class="section-head"><div class="section-icon">🏨</div><div><h2>今晚住這裡</h2><p class="sub">兩晚市區、最後一晚海邊度假</p></div></div>
+  <div class="lodging-grid">
+    <article class="card hotel-card"><div class="hotel-emoji">🏙️</div><div><h3>HOTEL LANTANA NAHA KOKUSAI STREET</h3><p>10/26（一）– 10/28（三）早上退房</p><p>〒900-0014 沖繩縣那霸市松尾 2-8-1</p><p>電話：+81-98-862-3211</p><a href="https://www.google.com/maps/search/?api=1&query=HOTEL+LANTANA+NAHA+KOKUSAI+STREET" target="_blank" rel="noopener">📍 開啟地圖 ↗</a></div></article>
+    <article class="card hotel-card"><div class="hotel-emoji">🌊</div><div><h3>OKINAWA KARIYUSHI BEACH RESORT OCEAN SPA</h3><p>10/28（三）入住一晚</p><p>〒904-0401 沖繩縣國頭郡恩納村名嘉真 2591-1</p><p>電話：+81-98-967-8731</p><a href="https://www.google.com/maps/search/?api=1&query=Okinawa+Kariyushi+Beach+Resort+Ocean+Spa" target="_blank" rel="noopener">📍 開啟地圖 ↗</a></div></article>
+  </div>
+</section>
+
+<section class="section" id="packing">
+  <div class="section-head"><div class="section-icon">🎒</div><div><h2>出發前待辦清單</h2><p class="sub">勾掉一項，心裡就少一件事</p></div></div>
+  <div class="card">
+    <div class="check-progress"><span>打包進度</span><span id="progress-label">0 / 12 已完成</span></div>
+    <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="checklist" id="checklist">
+      <label class="check-item"><input type="checkbox"><span>護照（大人、小孩）</span></label>
+      <label class="check-item"><input type="checkbox"><span>機票與旅行社資料</span></label>
+      <label class="check-item"><input type="checkbox"><span>手機、充電線、行動電源</span></label>
+      <label class="check-item"><input type="checkbox"><span>漫遊／網路方案確認</span></label>
+      <label class="check-item"><input type="checkbox"><span>常備藥、兒童藥品與 OK 繃</span></label>
+      <label class="check-item"><input type="checkbox"><span>孩子的換洗衣物、睡衣</span></label>
+      <label class="check-item"><input type="checkbox"><span>大人衣物、薄外套</span></label>
+      <label class="check-item"><input type="checkbox"><span>牙刷、個人盥洗用品</span></label>
+      <label class="check-item"><input type="checkbox"><span>兒童平板／耳機／離線影片</span></label>
+      <label class="check-item"><input type="checkbox"><span>孩子的零食、水壺</span></label>
+      <label class="check-item"><input type="checkbox"><span>信用卡、日圓、交通與購物袋</span></label>
+      <label class="check-item"><input type="checkbox"><span>出發前確認天氣與行李重量</span></label>
+    </div>
+  </div>
+</section>
+
+
+</main>
+<footer>沖繩小手帳 · 2026.10.26 — 10.29<br>慢慢走、好好玩，把回憶裝進口袋裡 🌺</footer>
+<button class="backtop" aria-label="回到頁面頂端" onclick="window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})">↑</button>
+<script>
+const itinerary = [
+ {date:"10/26（一）",title:"台北 ✈ 沖繩｜旅行開始！",summary:"今天的任務只有平安抵達，慢慢進入度假模式。",events:[
+  {time:"14:20",title:"桃園機場集合",desc:"第二航廈・長榮航空 20 號櫃檯",transport:"集合",color:"yellow",must:true},
+  {time:"16:50",title:"長榮航空 BR186 起飛",desc:"桃園 TPE → 沖繩那霸 OKA，預計 19:10 抵達。",transport:"飛機",color:"blue"},
+  {time:"晚上",title:"抵達沖繩・前往飯店",desc:"入住 HOTEL LANTANA NAHA KOKUSAI STREET。",transport:"接送",color:"green"},
+  {time:"晚餐",title:"機上精緻簡餐",desc:"先休息、補充水分，為明天的行程存體力。",transport:"餐食",color:"pink",meal:true}
+ ],note:"住宿：HOTEL LANTANA NAHA KOKUSAI STREET。抵達時間與接送安排依領隊通知為準。"},
+ {date:"10/27（二）",title:"文化散策・購物補給日",summary:"首里城、玉泉洞與琉球文化，再去 Outlet 逛街。",events:[
+  {time:"早餐",title:"飯店內早餐",desc:"吃飽再出發，今天景點比較多。",transport:"餐食",color:"green",meal:true},
+  {time:"上午",title:"首里城跡（外城）",desc:"認識琉球王國的歷史與建築。",transport:"遊覽車",color:"blue",must:true},
+  {time:"上午",title:"玉泉洞・沖繩世界文化王國村",desc:"鐘乳石洞、傳統工藝與琉球文化體驗。",transport:"入內參觀",color:"yellow",must:true},
+  {time:"中午",title:"日式套餐",desc:"午餐依旅行社實際安排為準。",transport:"餐食",color:"green",meal:true},
+  {time:"下午",title:"造酒場・琉球傳統大鼓隊",desc:"體驗沖繩傳統文化與表演。",transport:"特別安排",color:"pink"},
+  {time:"下午",title:"ASHIBINAA OUTLET",desc:"品牌購物時間，記得留意集合時間。",transport:"購物",color:"blue",must:true},
+  {time:"傍晚",title:"自行前往國際通",desc:"逛街、買伴手禮，晚餐升等阿古豬火鍋。",transport:"自由活動",color:"yellow"},
+  {time:"晚上",title:"回飯店休息",desc:"HOTEL LANTANA NAHA KOKUSAI STREET。",transport:"住宿",color:"green"}
+ ],note:"景點順序及停留時間可能依現場交通調整。國際通自行活動時，請先確認回飯店路線。"},
+ {date:"10/28（三）",title:"古宇利島・大海與海邊度假",summary:"跨海大橋、海洋博公園，晚上住進海邊度假飯店。",events:[
+  {time:"早餐",title:"飯店內早餐",desc:"退房後出發，記得檢查房間和行李。",transport:"餐食",color:"green",meal:true},
+  {time:"上午",title:"藥妝店或免稅店",desc:"依旅行團安排短暫採買。",transport:"購物",color:"blue"},
+  {time:"上午",title:"古宇利島及跨海大橋",desc:"欣賞沖繩海島風景與清澈海水。",transport:"遊覽車",color:"blue",must:true},
+  {time:"中午",title:"古宇利島名物・沖繩蝦蝦飯",desc:"排隊自費，預算參考約日幣 1,500 円。",transport:"自費餐食",color:"green",meal:true},
+  {time:"下午",title:"海洋博公園・美麗海水族館",desc:"欣賞大型水槽與海洋生物；海豚表演依當日場次安排。",transport:"入內參觀",color:"yellow",must:true},
+  {time:"傍晚",title:"前往海邊度假飯店",desc:"入住 OKINAWA KARIYUSHI BEACH RESORT OCEAN SPA。",transport:"遊覽車",color:"blue"},
+  {time:"晚上",title:"飯店晚餐／自由放鬆",desc:"依行程安排，享受海邊度假時光。",transport:"餐食・住宿",color:"green",meal:true}
+ ],note:"今天移動距離較長，請準備水、帽子與防曬用品。蝦蝦飯為自費項目，餐食安排以說明會資料為準。"},
+ {date:"10/29（四）",title:"美國村・最後採買・回家",summary:"把最後的沖繩風景裝進記憶，晚上搭機返台。",events:[
+  {time:"早餐",title:"飯店內早餐",desc:"享用早餐後辦理退房。",transport:"餐食",color:"green",meal:true},
+  {time:"上午",title:"美國村",desc:"海邊散步、拍照，感受美式街區風格。",transport:"遊覽車",color:"blue",must:true},
+  {time:"中午",title:"永旺夢樂城沖繩來客夢",desc:"購物、補買伴手禮與午餐時間。",transport:"購物",color:"yellow"},
+  {time:"下午",title:"波上宮",desc:"參拜沖繩知名神社，為旅程收尾。",transport:"入內參觀",color:"pink",must:true},
+  {time:"傍晚",title:"前往那霸機場",desc:"預留辦理登機與出境手續時間。",transport:"接送",color:"blue"},
+  {time:"20:10",title:"長榮航空 BR185 起飛",desc:"沖繩那霸 OKA → 桃園 TPE，預計 20:55 抵達。",transport:"飛機",color:"blue"},
+  {time:"晚上",title:"回到台灣・旅程完成",desc:"記得檢查護照、手機和所有行李。",transport:"抵達",color:"green"}
+ ],note:"回程時間請以航空公司當日資訊為準。請預留足夠時間前往機場與辦理登機。"}
+];
+function renderDay(index){
+ const d=itinerary[index], panel=document.getElementById('day-panel');
+ document.querySelectorAll('.day-tab').forEach((b,i)=>{b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1});
+ panel.setAttribute('aria-labelledby','tab-'+index);
+ panel.innerHTML=`<div class="day-title"><div><span class="pill pink">DAY ${index+1} · ${d.date}</span><h3 style="margin-top:8px">${d.title}</h3><p>${d.summary}</p></div><span style="font-size:2rem" aria-hidden="true">${['✈️','🏯','🐠','⛩️'][index]}</span></div><div class="timeline">${d.events.map(e=>`<article class="event"><div class="event-card"><div class="event-top"><span class="time">${e.time}</span>${e.must?'<span class="must">★ 必去</span>':''}</div><h4>${e.title}</h4><p>${e.desc}</p><div class="tags"><span class="transport ${e.color}">${e.transport}</span>${e.meal?'<span class="transport meal">🍽 餐食</span>':''}</div></div></article>`).join('')}</div><div class="day-note">💡 ${d.note}</div>`;
+}
+document.querySelectorAll('.day-tab').forEach(b=>b.addEventListener('click',()=>renderDay(Number(b.dataset.day))));
+document.querySelectorAll('.day-tab').forEach((b,i)=>b.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const next=(i+(e.key==='ArrowRight'?1:3))%4;document.querySelectorAll('.day-tab')[next].focus();renderDay(next)}}));
+renderDay(0);
+const departure=new Date('2026-10-26T00:00:00+08:00');
+function updateCountdown(){const now=new Date();const n=Math.ceil((departure-now)/(1000*60*60*24));document.getElementById('countdown').textContent=n>0?n:n===0?'今天':'出發啦';}
+updateCountdown();
+const boxes=[...document.querySelectorAll('#checklist input')];
+function updateProgress(){const done=boxes.filter(b=>b.checked).length;document.getElementById('progress-label').textContent=`${done} / ${boxes.length} 已完成`;document.getElementById('progress-fill').style.width=`${done/boxes.length*100}%`;}
+boxes.forEach(b=>b.addEventListener('change',updateProgress));updateProgress();
+</script>
+</body>
+</html>
